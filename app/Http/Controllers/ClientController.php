@@ -50,7 +50,8 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Client::find($id);
+
     }
 
     /**
@@ -63,15 +64,18 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         Client::find($id)->update(
-            array(
+            $request->all()
+            /*
+              array(
                 "name"=>$request['name'],
                 "responsible"=>$request['responsible'],
                 "email"=>$request['email'],
                 "phone"=>$request['phone'],
                 "address"=>$request['address'],
                 "obs"=>$request['obs']
-            )
+            ) */
         );
+
     }
 
     /**

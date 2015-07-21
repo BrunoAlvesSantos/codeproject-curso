@@ -20,3 +20,4 @@ Route::post('client', 'ClientController@store');
 Route::get('client/{id}', 'ClientController@show');
 Route::delete('client/{id}', 'ClientController@destroy');
 Route::post('client/{id}', 'ClientController@update');
+Route::get('client/{id}/edit', 'ClientController@edit');
