@@ -22,11 +22,11 @@ class Project extends Model
 
     public function client()
     {
-        return $this->hasOne(Client::class);
+        return $this->hasOne(Client::class, 'id', 'client_id');
     }
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'id', 'owner_id');
     }
 }
