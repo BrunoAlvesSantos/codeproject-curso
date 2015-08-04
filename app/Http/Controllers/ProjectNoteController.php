@@ -6,24 +6,24 @@ use CodeProject\Repositories\ProjectNoteRepository;
 use CodeProject\Services\ProjectNoteService;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class ProjectNoteController extends Controller
 {
     /**
      *
-     * @var ProjectRepository
+     * @var ProjectNoteRepository
      */
     private $repository;
 
     /**
      *
-     * @var ProjectService
+     * @var ProjectNoteService
      */
     private $service;
 
 
     /**
-     * @param ProjectRepository $repository
-     * @param ProjectService $service
+     * @param ProjectNoteRepository $repository
+     * @param ProjectNoteService $service
      */
     public function __construct(ProjectNoteRepository $repository, ProjectNoteService $service) {
         $this->repository = $repository;

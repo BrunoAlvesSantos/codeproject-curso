@@ -16,12 +16,12 @@ class ProjectNoteService
 {
 
     /**
-     * @var ProjectRepository
+     * @var ProjectNoteRepository
      */
     protected $repository;
 
     /**
-     * @var ProjectValidator
+     * @var ProjectNoteValidator
      */
     protected $validator;
 

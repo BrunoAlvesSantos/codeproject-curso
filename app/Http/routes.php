@@ -15,26 +15,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/* Clients Routes */
-Route::get('client', 'ClientController@index');
-Route::post('client', 'ClientController@store');
-Route::get('client/{id}', 'ClientController@show');
-Route::delete('client/{id}', 'ClientController@destroy');
-Route::put('client/{id}', 'ClientController@update');
-Route::get('client/{id}/edit', 'ClientController@edit');
+Route::post('oauth/access_token', function() {
+    return Response::json(Authorizer::issueAccessToken());
+});
 
-/* Projects Routes */
-Route::get('project', 'ProjectController@index');
-Route::post('project', 'ProjectController@store');
-Route::get('project/{id}', 'ProjectController@show');
-Route::delete('project/{id}', 'ProjectController@destroy');
-Route::put('project/{id}', 'ProjectController@update');
-Route::get('project/{id}/edit', 'ProjectController@edit');
+Route::group(['middleware'=> 'oauth'], function() {
+    /* Clients Routes */
+    Route::resource('client', 'ClientController', ['except' => ['create', 'edit']]);
 
-/* ProjectNotes Routes */
-Route::get('project/note', 'ProjectNoteController@index');
-Route::post('project/note', 'ProjectNoteController@store');
-Route::get('project/note/{id}', 'ProjectNoteController@show');
-Route::delete('project/note/{id}', 'ProjectNoteController@destroy');
-Route::put('project/note/{id}', 'ProjectNoteController@update');
-Route::get('project/note/{id}/edit', 'ProjectNoteController@edit');
+    Route::group(['prefix'=>'project'], function() {
+        /* Projects Routes */
+        Route::resource('', 'ProjectController', ['except' => ['create', 'edit']]);
+
+        /* ProjectNotes Routes */
+        Route::get('{id}/note', 'ProjectNoteController@index');
+        Route::post('{id}/note', 'ProjectNoteController@store');
+        Route::get('{id}note/{noteId}', 'ProjectNoteController@show');
+        Route::delete('note/{id}', 'ProjectNoteController@destroy');
+    });
+
+});
