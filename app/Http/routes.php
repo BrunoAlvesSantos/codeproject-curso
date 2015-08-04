@@ -19,7 +19,7 @@ Route::post('oauth/access_token', function() {
     return Response::json(Authorizer::issueAccessToken());
 });
 
-Route::group(['middleware'=> 'oauth'], function() {
+Route::group([/*'middleware'=> 'oauth'*/],  function() {
     /* Clients Routes */
     Route::resource('client', 'ClientController', ['except' => ['create', 'edit']]);
 
