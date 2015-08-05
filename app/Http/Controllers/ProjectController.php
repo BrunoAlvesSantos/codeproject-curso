@@ -58,7 +58,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return $this->repository->find($id);
+        return $this->repository->with('user')->with('client')->find($id);
     }
 
     /**
