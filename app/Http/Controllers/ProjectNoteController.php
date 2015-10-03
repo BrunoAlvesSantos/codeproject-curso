@@ -62,18 +62,6 @@ class ProjectNoteController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        return $this->repository->find($id);
-
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  Request  $request
@@ -82,7 +70,7 @@ class ProjectNoteController extends Controller
      */
     public function update(Request $request, $id, $noteId)
     {
-        $this->service->update($request->all(), $id, $noteId);
+        $this->service->update($request->all(), $noteId);
     }
 
     /**

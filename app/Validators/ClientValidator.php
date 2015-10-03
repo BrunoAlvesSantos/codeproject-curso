@@ -18,6 +18,6 @@ class ClientValidator extends LaravelValidator
         'responsible' => 'required|max:255',
         'email' => 'required|email',
         'phone' => 'required',
-        'addres' => 'required',
+        'address' => 'required',
     ];
 }

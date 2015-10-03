@@ -20,13 +20,13 @@ class Project extends Model
         return $this->hasMany(ProjectNote::class);
     }
 
-    public function client()
+    public function owner()
     {
-        return $this->hasOne(Client::class, 'id', 'client_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function user()
+    public function client()
     {
-        return $this->hasOne(User::class, 'id', 'owner_id');
+        return $this->belongsTo(Client::class);
     }
 }

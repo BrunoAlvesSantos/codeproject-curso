@@ -58,19 +58,7 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        return $this->repository->find($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        return $this->repository->find($id);
-
+        return $this->service->find($id);
     }
 
     /**
@@ -93,6 +81,6 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        $this->repository->delete($id);
+        $this->service->delete($id);
     }
 }

@@ -31,6 +31,34 @@ class ProjectNoteService
         $this->validator = $validator;
     }
 
+    public function all() {
+        try {
+            return $this->repository->with(['project'])->all();
+        }
+        catch (\Exception $e)
+        {
+            return [
+                "error" => true,
+                "message" => $e->getMessage()
+            ];
+        }
+
+    }
+
+    public function find($id) {
+        try {
+            return $this->repository->find($id)->with('project');
+        }
+        catch (\Exception $e)
+        {
+            return [
+                "error" => true,
+                "message" => $e->getMessage()
+            ];
+        }
+
+    }
+
     public function create(array $data)
     {
 

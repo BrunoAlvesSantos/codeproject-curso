@@ -36,7 +36,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-       return $this->repository->with('user')->with('client')->with('notes')->all();
+       return $this->service->all();
     }
 
     /**
@@ -58,19 +58,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return $this->repository->with('user')->with('client')->with('notes')->find($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        return $this->repository->find($id);
-
+        return $this->service->find($id);
     }
 
     /**
@@ -93,6 +81,7 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        $this->repository->delete($id);
+        $this->service->delete($id);
+
     }
 }
