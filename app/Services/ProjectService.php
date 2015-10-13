@@ -113,4 +113,50 @@ class ProjectService
 
 
     }
+
+    public function members($id) {
+        try {
+            return $this->repository->find($id)->members();
+        } catch (\Exception $e) {
+            return [
+                "error" => true,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    public function addMember($id, $userId) {
+        try {
+            $this->repository->find($id)->members()->attach($userId);
+            return ['success' => true];
+        } catch (\Exception $e) {
+            return [
+                "error" => true,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    public function removeMember($id, $userId) {
+        try {
+            $this->repository->find($id)->members()->detach($userId);
+            return ['success' => true];
+        } catch (\Exception $e) {
+            return [
+                "error" => true,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    public function isMember($id, $userId) {
+        try {
+            return $this->repositoy->find($id)->members()->find($userId) ? ['success' => true, 'isMember' => true] : ['success' => false, 'isMember' => false];
+        } catch (\Exception $e) {
+            return [
+                "error" => true,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 }

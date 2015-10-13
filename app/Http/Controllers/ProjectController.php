@@ -84,4 +84,52 @@ class ProjectController extends Controller
         $this->service->delete($id);
 
     }
+
+    /**
+    * Check project member
+    *
+    * @param  int  $id id of the project
+    * @return Response
+    */
+    public function members($id)
+    {
+        $this->service->members($id);
+
+    }
+
+    /**
+     * Add a project member
+     * @param Request $request from request
+     * @param  int  $id project id
+     * @return Response
+     */
+    public function addMember(Request $request, $id)
+    {
+        $this->service->addMember($id, $request->get('user_id'));
+
+    }
+
+    /**
+     * Add a project member
+     * @param Request $request from request
+     * @param  int  $id project id
+     * @param  int  $userId user id
+     * @return Response
+     */
+    public function removeMember(Request $request, $id, $userId)
+    {
+        $this->service->removeMember($id, $userId);
+
+    }
+
+    /**
+     * Check if the user is member of a project
+     * @param Request $request from request
+     * @param  int  $id project id
+     * @param  int  $userId user id
+     * @return boolean
+     */
+    public function isMember(Request $request, $id, $userId){
+        $this->service->isMember($id, $userId);
+    }
 }
