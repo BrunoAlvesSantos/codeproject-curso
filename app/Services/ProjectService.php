@@ -116,7 +116,7 @@ class ProjectService
 
     public function members($id) {
         try {
-            return $this->repository->find($id)->members();
+            return $this->repository->find($id)->members;
         } catch (\Exception $e) {
             return [
                 "error" => true,
