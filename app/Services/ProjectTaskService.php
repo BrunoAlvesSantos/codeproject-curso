@@ -31,6 +31,20 @@ class ProjectTaskService
         $this->validator = $validator;
     }
 
+    public function all($projectId) {
+        try {
+            return $this->repository->findWhere(['project_id' => $projectId])->all();
+        }
+        catch (\Exception $e)
+        {
+            return [
+                "error" => true,
+                "message" => $e->getMessage()
+            ];
+        }
+
+    }
+
     public function find($id, $noteId) {
 
         $note = $this->repository->findWhere(['project_id' => $id, 'id' => $noteId]);

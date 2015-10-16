@@ -10,6 +10,7 @@ namespace CodeProject\Repositories;
 
 use CodeProject\Entities\ProjectNote;
 use Prettus\Repository\Eloquent\BaseRepository;
+use CodeProject\Presenters\ProjectNotePresenter;
 
 class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNoteRepository
 {
@@ -17,5 +18,9 @@ class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNot
     public function model()
     {
         return ProjectNote::class;
+    }
+
+    public function presenter() {
+        return ProjectNotePresenter::class;
     }
 }

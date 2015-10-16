@@ -48,9 +48,17 @@ class ProjectFileController extends Controller
     public function store(Request $request)
     {
         $file = $request->file('file');
+        $data['file'] = $file;
+
+        if(empty($data['file'])) {
+            return [
+                'error' => true,
+                'message' => 'Please enter a file'
+            ];
+        }
+
         $extension = $file->getClientOriginalExtension();
 
-        $data['file'] = $file;
         $data['extension'] = $extension;
         $data['name'] = $request->name;
         $data['project_id'] = $request->project_id;
@@ -68,7 +76,7 @@ class ProjectFileController extends Controller
      */
     public function show($id)
     {
-        if($this->CheckProjectPermissions($id) == false) {
+        if($this->service->CheckProjectPermissions($id) == false) {
             return [ 'error' => 'Access Forbidden'];
         };
         return $this->service->find($id);
@@ -83,7 +91,7 @@ class ProjectFileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($this->CheckProjectOwner($id) == false) {
+        if($this->service->CheckProjectOwner($id) == false) {
             return [ 'error' => 'Access Forbidden'];
         };
 
@@ -98,11 +106,12 @@ class ProjectFileController extends Controller
      */
     public function destroy($id)
     {
-        if($this->CheckProjectOwner($id) == false) {
+        if($this->service->CheckProjectOwner($id) == false) {
             return [ 'error' => 'Access Forbidden'];
         };
 
         $this->service->delete($id);
+        $this->service->deleteFile($id);
 
     }
 }

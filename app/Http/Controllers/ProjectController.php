@@ -58,7 +58,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        if($this->CheckProjectPermissions($id) == false) {
+        if($this->service->CheckProjectPermissions($id) == false) {
             return [ 'error' => 'Access Forbidden'];
         };
         return $this->service->find($id);
@@ -73,7 +73,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($this->CheckProjectOwner($id) == false) {
+        if($this->service->CheckProjectOwner($id) == false) {
             return [ 'error' => 'Access Forbidden'];
         };
 
@@ -88,7 +88,7 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        if($this->CheckProjectOwner($id) == false) {
+        if($this->service->CheckProjectOwner($id) == false) {
             return [ 'error' => 'Access Forbidden'];
         };
 
@@ -104,6 +104,9 @@ class ProjectController extends Controller
     */
     public function members($id)
     {
+        if($this->service->CheckProjectPermissions($id) == false) {
+            return [ 'error' => 'Access Forbidden'];
+        };
         $this->service->members($id);
 
     }
@@ -116,6 +119,9 @@ class ProjectController extends Controller
      */
     public function addMember(Request $request, $id)
     {
+        if($this->service->CheckProjectPermissions($id) == false) {
+            return [ 'error' => 'Access Forbidden'];
+        };
         $this->service->addMember($id, $request->get('user_id'));
 
     }
@@ -129,6 +135,9 @@ class ProjectController extends Controller
      */
     public function removeMember(Request $request, $id, $userId)
     {
+        if($this->service->CheckProjectOwner($id) == false) {
+            return [ 'error' => 'Access Forbidden'];
+        };
         $this->service->removeMember($id, $userId);
 
     }
@@ -142,23 +151,5 @@ class ProjectController extends Controller
      */
     public function isMember(Request $request, $id, $userId){
         $this->service->isMember($id, $userId);
-    }
-
-    private function CheckProjectOwner($projectId) {
-        $userId = \Authorizer::getResourceOwnerId();
-
-        return $this->repository->isOwner($projectId,$userId);
-    }
-
-    private function CheckProjectMember($projectId) {
-        $userId = \Authorizer::getResourceOwnerId();
-
-        return $this->repository->hasMember($projectId,$userId);
-    }
-
-    private function CheckProjectPermissions($projectId) {
-        if($this->CheckProjectOwner($projectId) or $this->CheckProjectMember($projectId))
-            return true;
-        return false;
     }
 }

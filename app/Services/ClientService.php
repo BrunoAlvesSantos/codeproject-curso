@@ -31,6 +31,22 @@ class ClientService
         $this->repository = $repository;
         $this->validator = $validator;
     }
+
+    public function all()
+    {
+        try
+        {
+            return $this->repository->all();
+        }
+        catch (\Exception $e)
+        {
+            return [
+                "error" => true,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
     /**
      * Find a client
      * @param  integer $id client id
