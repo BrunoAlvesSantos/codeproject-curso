@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+    protected $table = 'projects';
+
     protected $fillable = [
         'owner_id',
         'client_id',
@@ -23,6 +25,11 @@ class Project extends Model
 
     public function notes(){
         return $this->hasMany(ProjectNote::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(ProjectTask::class);
     }
 
     public function owner()
