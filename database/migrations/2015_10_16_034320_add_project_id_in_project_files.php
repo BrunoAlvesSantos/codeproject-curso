@@ -14,7 +14,7 @@ class AddProjectIdInProjectFiles extends Migration
     {
         Schema::table('project_files', function (Blueprint $table) {
             $table->integer('project_id')->unsigned();
-            $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }
 
@@ -26,7 +26,8 @@ class AddProjectIdInProjectFiles extends Migration
     public function down()
     {
         Schema::table('project_files', function (Blueprint $table) {
-            //
+            $table->dropForeign('project_id');
+            $table->drop('project_id');
         });
     }
 }
