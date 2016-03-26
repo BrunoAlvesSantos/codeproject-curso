@@ -73,7 +73,13 @@ class ProjectNoteController extends Controller
         if($this->CheckProjectNotePermissions($id) == false) {
             return [ 'error' => 'Access Forbidden'];
         };
-        return $this->repository->findWhere(['project_id' => $id, 'id' => $noteId]);
+        $result = $this->repository->findWhere(['project_id' => $id, 'id' => $noteId]);
+        if(isset($result['data']) && count($result['data']) == 1) {
+            $result = [
+                'data' => $result['data'][0]
+            ];
+        }
+        return $result;
     }
 
     /**
@@ -83,7 +89,7 @@ class ProjectNoteController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id, $noteId)
+    public function update(Request $request, $id)
     {
         $projectNote = $this->repository->skipPresenter()->find($id);
         $projectId = $projectNote->project_id;
@@ -92,7 +98,7 @@ class ProjectNoteController extends Controller
             return [ 'error' => 'Access Forbidden'];
         };
 
-        $this->service->update($request->all(), $noteId);
+        $this->service->update($request->all(), $id);
     }
 
     /**
@@ -101,9 +107,9 @@ class ProjectNoteController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, $noteId)
+    public function destroy($id)
     {
-        $this->repository->delete($noteId);
+        $this->repository->delete($id);
     }
 
     private function CheckProjectNotePermissions($projectId) {
