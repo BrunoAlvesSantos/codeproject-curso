@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brunoasantos
- * Date: 01/08/15
- * Time: 00:52
- */
 
 namespace CodeProject\Services;
 
@@ -14,14 +8,13 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class ProjectNoteService
 {
-
     /**
-     * @var ProjectNoteRepository
+     * @var ProjectRepository
      */
     protected $repository;
 
     /**
-     * @var ProjectNoteValidator
+     * @var ProjectValidator
      */
     protected $validator;
 
@@ -31,40 +24,11 @@ class ProjectNoteService
         $this->validator = $validator;
     }
 
-    public function all() {
-        try {
-            return $this->repository->with(['project'])->all();
-        }
-        catch (\Exception $e)
-        {
-            return [
-                "error" => true,
-                "message" => $e->getMessage()
-            ];
-        }
-
-    }
-
-    public function find($id) {
-        try {
-            return $this->repository->find($id)->with('project');
-        }
-        catch (\Exception $e)
-        {
-            return [
-                "error" => true,
-                "message" => $e->getMessage()
-            ];
-        }
-
-    }
-
     public function create(array $data)
     {
-
         try {
-            $this->validator->with($data)->passesOrFail();
 
+            $this->validator->with($data)->passesOrFail();
             return $this->repository->create($data);
 
         } catch(ValidatorException $e) {
@@ -73,15 +37,14 @@ class ProjectNoteService
                 'message' => $e->getMessageBag()
             ];
         }
-
     }
 
     public function update(array $data, $id)
     {
         try {
-            $this->validator->with($data)->passesOrFail();
 
-            return $this->repository->update($data,$id);
+            $this->validator->with($data)->passesOrFail();
+            return $this->repository->update($data, $id);
 
         } catch(ValidatorException $e) {
             return [

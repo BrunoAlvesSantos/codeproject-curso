@@ -5,7 +5,7 @@ angular.module('app.controllers')
 
 		Project.get({id: $routeParams.id}, function (data) {
 			$scope.project = data;
-			$scope.clientSelected = data.client;
+			$scope.clientSelected = data.client.data;
 			/*
 			Client.get({id: data.client_id},function(data) {
 				$scope.clientSelected = data;
