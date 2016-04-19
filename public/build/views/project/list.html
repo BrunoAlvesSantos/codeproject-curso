@@ -20,23 +20,32 @@
 								<td>{{o.name}}</td>
 								<td>{{o.client.data.name}}</td>
 								<td>{{o.progress}}</td>
-								<td>{{o.status}}</td>
+								<td>{{status[o.status-1].label}}</td>
 								<td>{{o.due_date | dateBr}}</td>
 								<td nowrap>
-									<a ng-href="#/projects/{{o.id}}/edit">
+									<a ng-href="#/project/{{o.id}}/notes">
+										Notes
+									</a>
+									|
+									<a ng-href="#/project/{{o.id}}/tasks">
+										Tasks
+									</a>
+									|
+									<a ng-href="#/project/{{o.id}}/files">
+										Files
+									</a>
+									|
+									<a ng-href="#/project/{{o.id}}/edit">
 										Editar
 									</a>
 									|
-									<a ng-href="#/projects/{{o.id}}/remove">
+									<a ng-href="#/project/{{o.id}}/remove">
 										Excluir
 									</a>
 								</td>
 							</tr>
 						</tbody>
 					</table>
-					
-					
-
 				</div><!-- panel-body -->
 			</div>
 		</div>
